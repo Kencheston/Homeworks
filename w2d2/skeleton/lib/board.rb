@@ -34,12 +34,17 @@ class Board
       end
       idx += 1 unless stones.empty?
     end
-
+    @cups
     render
     next_turn(idx)
 
     return :prompt if idx == player_goal(current_player_name)
     :switch
+    idx
+    @cups
+    # if idx == @cup[idx].empty?
+    # return @cup
+    # return idx if @cup[idx].length > 1
 
   end
 
@@ -71,8 +76,3 @@ class Board
   def winner
   end
 end
-
-
-
-  board = Board.new("erica", "james")
-  board.make_move(0, "james")
