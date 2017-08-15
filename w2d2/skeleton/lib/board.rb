@@ -7,6 +7,9 @@ class Board
     @name2 = name2
     @cups = Array.new(14){Array.new(4, :stone)}.map!.with_index { |stone, idx|
       idx == 6 || idx == 13 ? stone = [] : stone }
+
+    # @cups = Array.new(14){Array.new(4, :stone)}.map!.with_index { |stone, idx|
+    #   idx == 6 || idx == 13 ? stone = [] : stone }
   end
 
   def place_stones
@@ -34,17 +37,14 @@ class Board
       end
       idx += 1 unless stones.empty?
     end
-    @cups
     render
     next_turn(idx)
 
     return :prompt if idx == player_goal(current_player_name)
-    :switch
+    return :switch if @cups[idx].empty?
+    return @cups[idx - 1]
+    return render
     idx
-    @cups
-    # if idx == @cup[idx].empty?
-    # return @cup
-    # return idx if @cup[idx].length > 1
 
   end
 
@@ -76,3 +76,8 @@ class Board
   def winner
   end
 end
+
+
+board = Board.new("Erica", "James")
+board.make_move(0, "Erica")
+board.make_move(5, "Erica")
